@@ -2,8 +2,6 @@
 import './App.css'
 import PokemonCard from './components/PokemonCard.jsx'
 import {useState} from "react"
-import react from 'react'
-import ReactDOM from 'react-dom'
 
 
 
@@ -17,28 +15,34 @@ const pokemonList = [
   ];   
 
 function App() {
- //Pour suivant-precedent
-  const [photo, setPhoto] = useState(0)//Stock
-  
+  const [photo, setPhoto] = useState(0);
+
   const handleNextClick = () => {
     setPhoto(photo + 1);
-  }
+  };
+
   const handlePreviewClick = () => {
     setPhoto(photo - 1);
-  }
-    
-  return (//Pour suivant-precedent
+  };
+
+  const Navbar = () => { 
+    return(
+    <nav>
+      <button onClick={handlePreviewClick} disabled={photo === 0}>Précédent</button>
+      <button onClick={handleNextClick} disabled={photo === pokemonList.length - 1}>Suivant</button>
+    </nav>
+        );
+        }
+
+  return (
     <div>
+      <Navbar />
       <PokemonCard pokemon={pokemonList[photo]} />
-      <div>
-        <button onClick={handlePreviewClick} disabled={photo === 0}>Précédent</button>
-        <button onClick={handleNextClick} disabled={photo === pokemonList.length - 1}> Suivant</button>
-      </div >
     </div>
-  )
+  );
 }
 
-  export default App;
+export default App;
 
 
 
