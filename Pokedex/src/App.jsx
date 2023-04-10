@@ -15,51 +15,41 @@ const pokemonList = [
 ]; 
  
 
-
-
 function App() {
- 
-  const [photo, setPhoto] = useState(0);
+  const [selectedPokemon, setSelectedPokemon] = useState(pokemonList[0]);
 
   useEffect(() => {
-    alert('Hello Pokemon Trainer') 
-    }, []);
-
+    alert('Hello Pokemon Trainer');
+  }, []);
 
   useEffect(() => {
-    if (pokemonList[photo].name === 'pikachu') {
-      alert('Pika Pikachu !!!');
+    if (selectedPokemon.name === 'Pikachu') {
+      alert('Pika Pikachu!!!');
     }
-  }, [photo]);
+  }, [selectedPokemon]);
 
-
-  function handleNextClick() {
-    setPhoto(photo + 1);
-  }
-
-  const handlePreviewClick = () => {
-    setPhoto(photo - 1);
+  const handlePokemonButtonClick = (pokemon) => {
+    setSelectedPokemon(pokemon);
   };
 
-  const Navbar = () => { 
-    return(
-    <nav>
-      <button onClick={handlePreviewClick} disabled={photo === 0}>Précédent</button>
-      <button onClick={handleNextClick} disabled={photo === pokemonList.length - 1}>Suivant</button>
-    </nav>
-        );
-        }
+  const Navbar = () => {
+    return (
+      <nav>
+        {pokemonList.map((pokemon, index) => (
+          <button key={index} onClick={() => handlePokemonButtonClick(pokemon)}>
+            {pokemon.name}
+          </button>
+        ))}
+      </nav>
+    );
+  };
 
   return (
     <div>
       <Navbar />
-      <PokemonCard pokemon={pokemonList[photo]} />
+      <PokemonCard pokemon={selectedPokemon} />
     </div>
   );
-  }
+}
 
 export default App;
-
-
-
-
